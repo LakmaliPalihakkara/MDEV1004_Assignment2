@@ -17,13 +17,7 @@ app.use(
 
 app.use(express.json());
 
-var routes = require("./api/routes/courseRoutes"); //importing route
-//routes(app); //register the route
+var routes = require("./api/routes/courseRoutes");
+//routes(app);
 app.use("/courses", routes);
-
-// app.get("/",function(req,res) => {
-
-// 	res.send({message:"API is working fine"});
-// });
-
 app.listen(PORT);
