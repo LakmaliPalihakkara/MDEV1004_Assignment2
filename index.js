@@ -5,19 +5,20 @@ var course = require("./api/models/courseModel"),
   bodyParser = require("body-parser");
 const InitiateMongoServer = require("./db");
 
-InitiateMongoServer();
+InitiateMongoServer().then(function () {
+  const PORT = process.env.PORT || 3000;
 
-const PORT = process.env.PORT || 3000;
+  app.use(
+    express.urlencoded({
+      extended: true,
+    })
+  );
 
-app.use(
-  express.urlencoded({
-    extended: true,
-  })
-);
+  app.use(express.json());
 
-app.use(express.json());
+  var routes = require("./api/routes/courseRoutes");
 
-var routes = require("./api/routes/courseRoutes");
-//routes(app);
-app.use("/courses", routes);
-app.listen(PORT);
+  app.use("/courses", routes);
+
+  app.listen(PORT);
+});
